@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Real-time Stock Market</title>
+  </head>
+  <body>
+    <h1>Apple: <span id="stock-price">Loading...</span></h1>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+      var socket = io.connect(
+        "http://" + document.domain + ":" + location.port
+      );
+
+      socket.on("connect", function () {
+        console.log("Connected to server");
+      });
+
+      socket.on("stock_price", function (data) {
+        document.getElementById("stock-price").innerText = data.price;
+      });
+    </script>
+  </body>
+</html>
